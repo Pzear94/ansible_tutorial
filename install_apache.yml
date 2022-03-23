@@ -1,0 +1,19 @@
+--- #YML empienzan por 3 guiones
+
+- hosts: all				 #Indicamos que se ejecuten en todos los hosts
+  become: true				 #Indicamos que se va a dar permisos de super usuario para la instalacion
+  tasks:				 #En esta seccion vamos a indicar todas las tareas a realizar
+
+  #- name: update repository index
+   # apt:
+     # update_cache: yes
+
+  - name: install apache2 package	 #Le damos un nombre a la tarea procurar que sea descriptiva
+    apt:				 #Indicamos el modulo que vamos a utilizar
+      name: apache2			 #Indicamos la tarea dentro del modulo a realizar
+      state: latest
+
+  - name: anadir soporte php para apache
+    apt:
+      name: libapache2-mod-php
+      state: latest

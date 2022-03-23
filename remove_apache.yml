@@ -1,0 +1,15 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Remover Apache
+    apt:
+      name: apache2
+      state: absent		 # Con este estado removemos un paquete
+
+  - name: Remover soporte de php a apache
+    apt:
+      name: libapache2-mod-php
+      state: absent
