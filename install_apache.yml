@@ -1,37 +1,16 @@
---- #YML empienzan por 3 guiones
+--- 
 
-- hosts: all				 #Indicamos que se ejecuten en todos los hosts
-  become: true				 #Indicamos que se va a dar permisos de super usuario para la instalacion
-  tasks:				 #En esta seccion vamos a indicar todas las tareas a realizar
+- hosts: all				 
+  become: true				 
+  tasks:				 
 
-#TASKS de instalacion de Apache y soporte PHP solo para Ubuntu
-  #- name: update repository index
-   # apt:
-     # update_cache: yes
-
-  - name: install apache2 package Ubuntu	 #Le damos un nombre a la tarea procurar que sea descriptiva
-    apt:				 #Indicamos el modulo que vamos a utilizar
-      name: apache2			 #Indicamos la tarea dentro del modulo a realizar
+  - name: install apache2 and ph
+    package:				 
+      name: 
+        - "{{ apache_package }}"
+        - "{{ php_package }}"			 
       state: latest
-    when: ansible_distribution == "Ubuntu"
-    #Con when podemos poner condiciones de ejecucion de los tasks
-
-  - name: anadir soporte php para apache Ubuntu
-    apt:
-      name: libapache2-mod-php
-      state: latest
-    when: ansible_distribution == "Ubuntu"
-    #ansible_distribution es una variable built in pero podemos comparar con valor de gatherfacts
-
-#TASKS de instalacion de Apache y soporte PHP solo para CentOS
-  - name: install apache2 package CentOS       
-    yum:                                #Cambiamos el modulo                                 
-      name: httpd                       #En CEntos el modulo de apache se llama httpd                     
-      state: latest
-    when: ansible_distribution == "CentOS"
-
-  - name: anadir soporte php para apache en CentOS
-    yum:
-      name: php                         #En CEntos el paquete soporte php se llama php 
-      state: latest
-    when: ansible_distribution == "CentOS"
+      #update_cache: yes
+  
+     
+             
